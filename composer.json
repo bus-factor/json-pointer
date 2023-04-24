@@ -1,8 +1,29 @@
 {
     "name": "bus-factor/json-pointer",
-    "description": "JSON Pointer (RFC 6901: https://datatracker.ietf.org/doc/html/rfc6901)",
+    "description": "JSON pointer (RFC 6901: https://datatracker.ietf.org/doc/html/rfc6901) library",
     "type": "library",
     "license": "MIT",
+    "archive": {
+        "exclude": [
+            ".gitignore",
+            "ci"
+        ]
+    },
+    "keywords": [
+        "6901",
+        "json",
+        "json-pointer",
+        "jsonpointer",
+        "pointer",
+        "rfc",
+        "rfc-6901",
+        "rfc6901"
+    ],
+    "support": {
+        "issues": "https://github.com/bus-factor/json-pointer/issues",
+        "source": "https://github.com/bus-factor/json-pointer"
+    },
+    "readme": "README.md",
     "config": {
         "sort-packages": true
     },
