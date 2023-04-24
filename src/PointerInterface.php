@@ -1,11 +1,10 @@
-# JSON Pointer
+<?php
 
-This library provides an implementation of RFC-6901 ([JavaScript Object Notation (JSON) Pointer](https://datatracker.ietf.org/doc/html/rfc6901)).
+declare(strict_types=1);
 
-## Usage
-
-```php
 namespace BusFactor\JsonPointer;
+
+use Stringable;
 
 interface PointerInterface extends Stringable
 {
@@ -27,16 +26,3 @@ interface PointerInterface extends Stringable
 
     public function toJson(): string;
 }
-```
-
-### Mutable pointer
-
-```php
-$pointer = new \BusFactor\JsonPointer\Pointer(['data', 'users', '1']);
-```
-
-### Immutable pointer
-
-```php
-$immutablePointer = new \BusFactor\JsonPointer\ImmutablePointer(['data', 'users', '1']);
-```

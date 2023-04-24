@@ -11,6 +11,11 @@
             "BusFactor\\JsonPointer\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "BusFactor\\JsonPointerTest\\": "ci/phpunit/src/"
+        }
+    },
     "authors": [
         {
             "name": "Michael Leßnau",
@@ -18,6 +23,28 @@
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "scripts": {
+        "ci:*": [
+            "@ci:phpunit"
+        ],
+        "ci:phpunit": [
+            "@putenv XDEBUG_MODE=off",
+            "phpunit --configuration ci/phpunit/phpunit.xml --no-coverage"
+        ],
+        "ci:phpunit:coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --configuration ci/phpunit/phpunit.xml"
+        ]
+    },
+    "scripts-descriptions": {
+        "ci:*": "Run CI scripts",
+        "ci:phpunit": "Run PHPUnit tests (without code coverage)",
+        "ci:phpunit:coverage": "Run PHPUnit tests (with code coverage)"
     }
 }
