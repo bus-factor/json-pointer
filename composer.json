@@ -48,11 +48,17 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
+        "phpstan/phpstan": "*",
         "phpunit/phpunit": "*"
     },
     "scripts": {
         "ci:*": [
+            "@ci:phpstan",
             "@ci:phpunit"
+        ],
+        "ci:phpstan": [
+            "@putenv XDEBUG_MODE=off",
+            "phpstan analyse --configuration ci/phpstan/phpstan.neon"
         ],
         "ci:phpunit": [
             "@putenv XDEBUG_MODE=off",
@@ -65,6 +71,7 @@
     },
     "scripts-descriptions": {
         "ci:*": "Run CI scripts",
+        "ci:phpstan": "Run PHPStan",
         "ci:phpunit": "Run PHPUnit tests (without code coverage)",
         "ci:phpunit:coverage": "Run PHPUnit tests (with code coverage)"
     }

@@ -33,10 +33,12 @@ class PointerImmutableTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('reference token must be <string> or <int>, got <' . $type . '>');
 
+        // @phpstan-ignore-next-line
         new PointerImmutable($referenceTokens);
     }
 
     /**
+     * @param array<int|string> $expectedReferenceTokens
      * @testWith ["/foo/0/bar", ["foo", "0", "bar"]]
      *           ["", []]
      *           ["/", [""]]
@@ -63,6 +65,7 @@ class PointerImmutableTest extends TestCase
     }
 
     /**
+     * @param array<int|string> $referenceTokens
      * @testWith [["foo", 0, "bar"], "/foo/0/bar"]
      *           [[""], "/"]
      *           [["", ""], "//"]
@@ -98,6 +101,7 @@ class PointerImmutableTest extends TestCase
     }
 
     /**
+     * @param array<int|string> $referenceTokens
      * @testWith [["foo", 0, "bar"], "/foo/0/bar"]
      *           [[""], "/"]
      *           [["", ""], "//"]

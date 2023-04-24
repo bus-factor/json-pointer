@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BusFactor\JsonPointer;
 
 use InvalidArgumentException;
+use JsonException;
 
 abstract class AbstractPointer implements PointerInterface
 {
@@ -75,21 +76,38 @@ abstract class AbstractPointer implements PointerInterface
 
     /**
      * @todo find a better way to UTF-8 encode the reference token
+     * @throws JsonException
      */
     protected static function encodeReferenceToken(string|int $referenceToken): string|int
     {
         return is_string($referenceToken)
-            ? trim(json_encode(str_replace(['~', '/'], ['~0', '~1'], $referenceToken)), '"')
+            ? trim(json_encode(str_replace(['~', '/'], ['~0', '~1'], $referenceToken), flags: JSON_THROW_ON_ERROR), '"')
             : $referenceToken;
     }
 
     /**
      * @todo find a better way to UTF-8 decode the reference token
+     * @throws JsonException
+     * @throws InvalidArgumentException
      */
     protected static function decodeReferenceToken(string|int $referenceToken): string|int
     {
-        return is_string($referenceToken)
-            ? json_decode('{"value":"' . str_replace(['~1', '~0'], ['/', '~'], $referenceToken) . '"}')->value
-            : $referenceToken;
+        if (! is_string($referenceToken)) {
+            return $referenceToken;
+        }
+
+        $referenceToken = str_replace(['~1', '~0'], ['/', '~'], $referenceToken);
+
+        if (! is_string($referenceToken)) {
+            throw new InvalidArgumentException('failed to decode JSON pointer reference token (1)');
+        }
+
+        $result = json_decode('{"value":"' . $referenceToken . '"}', flags: JSON_THROW_ON_ERROR);
+
+        if (! is_object($result) || ! isset($result->value) || !is_string($result->value)) {
+            throw new InvalidArgumentException('failed to decode JSON pointer reference token (2)');
+        }
+
+        return $result->value;
     }
 }
