@@ -25,7 +25,10 @@
     },
     "readme": "README.md",
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     },
     "autoload": {
         "psr-4": {
@@ -49,7 +52,9 @@
     },
     "require-dev": {
         "phpmd/phpmd": "*",
+        "phpstan/extension-installer": "*",
         "phpstan/phpstan": "*",
+        "phpstan/phpstan-strict-rules": "*",
         "phpunit/phpunit": "*"
     },
     "scripts": {
