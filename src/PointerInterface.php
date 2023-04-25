@@ -22,7 +22,7 @@ interface PointerInterface extends Stringable
 
     public function prepend(string|int $referenceToken): static;
 
-    public static function fromJson(string $json): static;
-
     public function toJson(): string;
+
+    public static function fromJson(string $json): static;
 }

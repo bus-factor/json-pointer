@@ -31,6 +31,25 @@ abstract class AbstractPointer implements PointerInterface
         return $this->referenceTokens;
     }
 
+    public function toJson(): string
+    {
+        return count($this->referenceTokens) > 0
+            ? '/' . implode('/', array_map(self::encodeReferenceToken(...), $this->referenceTokens))
+            : '';
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function fromJson(string $json): static
+    {
+        if (preg_match('~^(/([^/])*)*$~', $json) !== 1) {
+            throw new InvalidArgumentException('invalid JSON pointer format: ' . $json);
+        }
+
+        return new static(array_map(self::decodeReferenceToken(...), array_slice(explode('/', $json), 1)));
+    }
+
     /**
      * @param array<string|int> $referenceTokens
      * @throws InvalidArgumentException
@@ -48,30 +67,6 @@ abstract class AbstractPointer implements PointerInterface
         $this->referenceTokens = array_values($referenceTokens);
 
         return $this;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function fromJson(string $json): static
-    {
-        if (preg_match('~^(/([^/])*)*$~', $json) !== 1) {
-            throw new InvalidArgumentException('invalid JSON pointer format: ' . $json);
-        }
-
-        return new static(array_map(self::decodeReferenceToken(...), array_slice(explode('/', $json), 1)));
-    }
-
-    public function toJson(): string
-    {
-        return count($this->referenceTokens) > 0
-            ? '/' . implode('/', array_map(self::encodeReferenceToken(...), $this->referenceTokens))
-            : '';
-    }
-
-    public function __toString(): string
-    {
-        return $this->toJson();
     }
 
     /**
@@ -109,5 +104,10 @@ abstract class AbstractPointer implements PointerInterface
         }
 
         return $result->value;
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

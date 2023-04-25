@@ -27,7 +27,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "autoload": {
@@ -55,17 +56,24 @@
         "phpstan/extension-installer": "*",
         "phpstan/phpstan": "*",
         "phpstan/phpstan-strict-rules": "*",
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "slevomat/coding-standard": "*",
+        "squizlabs/php_codesniffer": "*"
     },
     "scripts": {
         "ci:*": [
+            "@ci:phpcs",
             "@ci:phpmd",
             "@ci:phpstan",
             "@ci:phpunit:coverage"
         ],
+        "ci:phpcs": [
+            "@putenv XDEBUG_MODE=off",
+            "phpcs --standard=ci/phpcs/phpcs.xml src ci/phpunit/src"
+        ],
         "ci:phpmd": [
             "@putenv XDEBUG_MODE=off",
-            "phpmd ci/phpunit/src,src text ci/phpmd/phpmd.xml"
+            "phpmd src,ci/phpunit/src text ci/phpmd/phpmd.xml"
         ],
         "ci:phpstan": [
             "@putenv XDEBUG_MODE=off",
@@ -82,7 +90,8 @@
     },
     "scripts-descriptions": {
         "ci:*": "Run CI scripts",
-        "ci:phpmd": "Run PHPMD",
+        "ci:phpcs": "Run Code Sniffer",
+        "ci:phpmd": "Run PHP Mess Detector",
         "ci:phpstan": "Run PHPStan",
         "ci:phpunit": "Run PHPUnit tests (without code coverage)",
         "ci:phpunit:coverage": "Run PHPUnit tests (with code coverage)"
