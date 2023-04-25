@@ -53,6 +53,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "*",
+        "phpcompatibility/php-compatibility": "*",
         "phpmd/phpmd": "*",
         "phpstan/extension-installer": "*",
         "phpstan/phpstan": "*",

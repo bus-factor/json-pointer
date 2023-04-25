@@ -95,9 +95,17 @@ abstract class AbstractPointer implements PointerInterface
      */
     protected static function encodeReferenceToken(string|int $referenceToken): string|int
     {
-        return is_string($referenceToken)
-            ? trim(json_encode(str_replace(['~', '/'], ['~0', '~1'], $referenceToken), flags: JSON_THROW_ON_ERROR), '"')
-            : $referenceToken;
+        if (! is_string($referenceToken)) {
+            return $referenceToken;
+        }
+
+        $value = json_encode(str_replace(['~', '/'], ['~0', '~1'], $referenceToken), flags: JSON_THROW_ON_ERROR);
+
+        if (! is_string($value)) {
+            throw new InvalidArgumentException('failed to encode JSON pointer reference token');
+        }
+
+        return trim($value, '"');
     }
 
     /**

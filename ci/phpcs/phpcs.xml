@@ -16,7 +16,9 @@
     |===============================================================
   -->
 
-  <rule ref="../../vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+  <config installed_paths="../../vendor/slevomat/coding-standard" />
+
+  <rule ref="SlevomatCodingStandard">
     <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces" />
     <exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal" />
     <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming" />
@@ -37,7 +39,7 @@
     <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes" />
   </rule>
 
-  <rule ref="../../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Files/TypeNameMatchesFileNameSniff.php">
+  <rule ref="SlevomatCodingStandard/Sniffs/Files/TypeNameMatchesFileNameSniff.php">
     <properties>
       <property name="rootNamespaces" type="array">
         <element key="../../src" value="BusFactor\JsonPointer" />
@@ -46,18 +48,17 @@
     </properties>
   </rule>
 
-  <rule ref="../../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Namespaces/UnusedUsesSniff.php">
+  <rule ref="SlevomatCodingStandard/Sniffs/Namespaces/UnusedUsesSniff.php">
     <properties>
       <property name="searchAnnotations" value="true" />
     </properties>
   </rule>
 
-  <rule ref="../../vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php">
+  <rule ref="SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php">
     <properties>
       <property name="spacesCountAroundEqualsSign" value="0" />
     </properties>
   </rule>
-
 
   <!--
     |===============================================================
@@ -65,8 +66,23 @@
     |===============================================================
   -->
 
-  <rule ref="../../vendor/doctrine/coding-standard/lib/Doctrine/ruleset.xml">
+  <config installed_paths="../../vendor/doctrine/coding-standard/lib" />
+
+  <rule ref="Doctrine">
     <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing" />
     <exclude name="Generic.Formatting.MultipleStatementAlignment" />
   </rule>
+
+  <!--
+    |===============================================================
+    | PHP compatibility
+    |===============================================================
+  -->
+
+  <!--
+  <config installed_paths="../../vendor/phpcompatibility/php-compatibility" />
+
+  <rule ref="PHPCompatibility">
+  </rule>
+  -->
 </ruleset>
