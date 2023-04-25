@@ -66,5 +66,7 @@
   -->
 
   <rule ref="../../vendor/doctrine/coding-standard/lib/Doctrine/ruleset.xml">
+    <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing" />
+    <exclude name="Generic.Formatting.MultipleStatementAlignment" />
   </rule>
 </ruleset>

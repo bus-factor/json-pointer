@@ -7,6 +7,23 @@ namespace BusFactor\JsonPointer;
 use InvalidArgumentException;
 use JsonException;
 
+use function array_map;
+use function array_slice;
+use function array_values;
+use function count;
+use function explode;
+use function gettype;
+use function implode;
+use function is_object;
+use function is_string;
+use function json_decode;
+use function json_encode;
+use function preg_match;
+use function str_replace;
+use function trim;
+
+use const JSON_THROW_ON_ERROR;
+
 abstract class AbstractPointer implements PointerInterface
 {
     /**
@@ -16,6 +33,7 @@ abstract class AbstractPointer implements PointerInterface
 
     /**
      * @param array<string|int> $referenceTokens
+     *
      * @throws InvalidArgumentException
      */
     public function __construct(array $referenceTokens = [])
@@ -52,6 +70,7 @@ abstract class AbstractPointer implements PointerInterface
 
     /**
      * @param array<string|int> $referenceTokens
+     *
      * @throws InvalidArgumentException
      */
     protected function setReferenceTokens(array $referenceTokens): static
@@ -70,8 +89,9 @@ abstract class AbstractPointer implements PointerInterface
     }
 
     /**
-     * @todo find a better way to UTF-8 encode the reference token
      * @throws JsonException
+     *
+     * @todo find a better way to UTF-8 encode the reference token
      */
     protected static function encodeReferenceToken(string|int $referenceToken): string|int
     {
@@ -81,9 +101,10 @@ abstract class AbstractPointer implements PointerInterface
     }
 
     /**
-     * @todo find a better way to UTF-8 decode the reference token
      * @throws JsonException
      * @throws InvalidArgumentException
+     *
+     * @todo find a better way to UTF-8 decode the reference token
      */
     protected static function decodeReferenceToken(string|int $referenceToken): string|int
     {
@@ -99,7 +120,7 @@ abstract class AbstractPointer implements PointerInterface
 
         $result = json_decode('{"value":"' . $referenceToken . '"}', flags: JSON_THROW_ON_ERROR);
 
-        if (! is_object($result) || ! isset($result->value) || !is_string($result->value)) {
+        if (! is_object($result) || ! isset($result->value) || ! is_string($result->value)) {
             throw new InvalidArgumentException('failed to decode JSON pointer reference token (2)');
         }
 

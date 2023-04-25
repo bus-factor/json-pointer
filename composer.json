@@ -63,6 +63,7 @@
     },
     "scripts": {
         "ci:*": [
+            "@ci:phpcs:fix",
             "@ci:phpcs",
             "@ci:phpmd",
             "@ci:phpstan",
@@ -71,6 +72,10 @@
         "ci:phpcs": [
             "@putenv XDEBUG_MODE=off",
             "phpcs --standard=ci/phpcs/phpcs.xml src ci/phpunit/src"
+        ],
+        "ci:phpcs:fix": [
+            "@putenv XDEBUG_MODE=off",
+            "phpcbf --standard=ci/phpcs/phpcs.xml src ci/phpunit/src"
         ],
         "ci:phpmd": [
             "@putenv XDEBUG_MODE=off",
