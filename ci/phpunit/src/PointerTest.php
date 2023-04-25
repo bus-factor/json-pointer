@@ -38,7 +38,7 @@ class PointerTest extends TestCase
     }
 
     /**
-     * @param array<int|string> $expectedReferenceTokens
+     * @param array<int|string> $referenceTokens
      * @testWith ["/foo/0/bar", ["foo", "0", "bar"]]
      *           ["", []]
      *           ["/", [""]]
@@ -49,11 +49,11 @@ class PointerTest extends TestCase
      *           ["/~00", ["~0"]]
      *           ["/\\u00e4\\u00f6\\u00fc~0", ["äöü~"]]
      */
-    public function testFromJson(string $json, array $expectedReferenceTokens): void
+    public function testFromJson(string $json, array $referenceTokens): void
     {
         $pointer = Pointer::fromJson($json);
 
-        self::assertSame($expectedReferenceTokens, $pointer->getReferenceTokens());
+        self::assertSame($referenceTokens, $pointer->getReferenceTokens());
     }
 
     public function testFromJsonThrowsExceptionOnInvalidJsonPointer(): void

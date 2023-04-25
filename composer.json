@@ -48,13 +48,19 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
+        "phpmd/phpmd": "*",
         "phpstan/phpstan": "*",
         "phpunit/phpunit": "*"
     },
     "scripts": {
         "ci:*": [
+            "@ci:phpmd",
             "@ci:phpstan",
-            "@ci:phpunit"
+            "@ci:phpunit:coverage"
+        ],
+        "ci:phpmd": [
+            "@putenv XDEBUG_MODE=off",
+            "phpmd ci/phpunit/src,src text ci/phpmd/phpmd.xml"
         ],
         "ci:phpstan": [
             "@putenv XDEBUG_MODE=off",
@@ -71,6 +77,7 @@
     },
     "scripts-descriptions": {
         "ci:*": "Run CI scripts",
+        "ci:phpmd": "Run PHPMD",
         "ci:phpstan": "Run PHPStan",
         "ci:phpunit": "Run PHPUnit tests (without code coverage)",
         "ci:phpunit:coverage": "Run PHPUnit tests (with code coverage)"
