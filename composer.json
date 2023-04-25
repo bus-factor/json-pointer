@@ -98,6 +98,7 @@
     "scripts-descriptions": {
         "ci:*": "Run CI scripts",
         "ci:phpcs": "Run Code Sniffer",
+        "ci:phpcs:fix": "Fixes Code Sniffer coding standards violations",
         "ci:phpmd": "Run PHP Mess Detector",
         "ci:phpstan": "Run PHPStan",
         "ci:phpunit": "Run PHPUnit tests (without code coverage)",
