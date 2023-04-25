@@ -52,6 +52,7 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
+        "doctrine/coding-standard": "*",
         "phpmd/phpmd": "*",
         "phpstan/extension-installer": "*",
         "phpstan/phpstan": "*",
